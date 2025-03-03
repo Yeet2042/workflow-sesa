@@ -44,13 +44,15 @@ export default function Page() {
           </BlurFade>
         </h1>
         <BoxReveal boxColor={"#5C0771"} duration={0.5}>
-          <span className="font-semibold text-5xl underline">ง่าย</span>
-          <span className="text-5xl"> </span>
-          <span className="font-semibold text-5xl underline">ครบ</span>
-          <span className="text-5xl"> </span>
-          <span className="font-semibold text-5xl underline">จบ</span>
-          <span className="text-5xl"> </span>
-          <span className="text-5xl">ในที่เดียว </span>
+          <p>
+            <span className="font-semibold text-5xl underline">ง่าย</span>
+            <span className="text-5xl"> </span>
+            <span className="font-semibold text-5xl underline">ครบ</span>
+            <span className="text-5xl"> </span>
+            <span className="font-semibold text-5xl underline">จบ</span>
+            <span className="text-5xl"> </span>
+            <span className="text-5xl">ในที่เดียว </span>
+          </p>
         </BoxReveal>
         <div className="flex gap-4">
           <Button />
