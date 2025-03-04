@@ -7,13 +7,35 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { BoxReveal } from "@/components/magicui/box-reveal";
+import { signIn } from 'next-auth/react'
 
 export default function Page() {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [error, setError] = useState(false);
+
+  const handleSubmit = async () => {
+    try {
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      })
+
+      if (result?.error) {
+        setError(true)
+      } else if (result) {
+        router.push('/profile')
+      }
+    } catch (error) {
+      console.log('error', error)
+      setError(true)
+    }
+  }
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-violet-800 to-black animate-gradient-move">
@@ -39,11 +61,11 @@ export default function Page() {
           </BoxReveal>
         </div>
         <TextBox
-          type="text"
+          type="email"
           icon={<UserIcon />}
-          placeholder="ชื่อบัญชี"
-          value={username}
-          onChange={setUsername}
+          placeholder="อีเมลล์"
+          value={email}
+          onChange={setEmail}
         />
         <TextBox
           type="password"
@@ -56,7 +78,8 @@ export default function Page() {
           className="relative bg-primary-950 text-white px-8 py-3 rounded-lg whitespace-nowrap overflow-hidden shadow-lg transition-shadow duration-300"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={() => console.log("asdas")}
+          onClick={handleSubmit}
+          disabled={!email || !password}
         >
           <motion.div
             className="flex items-center justify-center w-full"
@@ -84,6 +107,7 @@ export default function Page() {
             transition={{ duration: 0.4 }}
           />
         </button>
+        {error && <p className="text-end text-sm text-red-500">อีเมลล์หรือหรัสผ่านไม่ถูกต้อง</p>}
         <div className="flex justify-between text-neutral-300">
           <div className="flex items-center gap-2">
             <input type="checkbox" id="rememberMe" className="w-4 h-4" />
