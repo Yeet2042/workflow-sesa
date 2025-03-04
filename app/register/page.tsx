@@ -1,7 +1,7 @@
 "use client";
 
 import TextBox from "@/components/inputs/TextBox";
-import { UserIcon, LockClosedIcon } from "@heroicons/react/20/solid";
+import { UserIcon, LockClosedIcon, EnvelopeIcon, UsersIcon, BuildingOffice2Icon, UserCircleIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,16 +12,51 @@ export default function Page() {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
 
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [department, setDepartment] = useState("");
+  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [error, setError] = useState(false);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          companyName: company,
+          departmentName: department,
+          password,
+          role,
+        }),
+      });  
+
+      if (!response.ok) {
+        setError(true)
+        throw new Error("Failed to register user");
+      } else {
+        router.push("/login");
+      }
+    } catch (error) {
+      console.log("error", error);
+      setError(true);
+    }
+  }
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-violet-800 to-black animate-gradient-move">
       <div className="absolute top-20 left-20 w-[500px] h-[500px] rounded-full bg-purple-600/20 blur-[120px] -z-10"></div>
       <div className="absolute bottom-40 right-20 w-[400px] h-[400px] rounded-full bg-indigo-600/20 blur-[100px] -z-10"></div>
 
-      <div className="container max-w-[500px] max-h-[650px] w-full h-full bg-[#252931] rounded-lg shadow-lg px-16 py-8 flex flex-col gap-6 relative z-10">
+      <div className="container max-w-[500px] w-full h-fit bg-[#252931] rounded-lg shadow-lg px-16 py-8 flex flex-col gap-6 relative z-10">
         <Image
           src="/logo_full.svg"
           alt="Logo"
@@ -42,9 +77,37 @@ export default function Page() {
         <TextBox
           type="text"
           icon={<UserIcon />}
-          placeholder="ชื่อบัญชี"
-          value={username}
-          onChange={setUsername}
+          placeholder="ชื่อ-นามสกุล"
+          value={name}
+          onChange={setName}
+        />
+        <TextBox
+          type="email"
+          icon={<EnvelopeIcon />}
+          placeholder="อีเมลล์"
+          value={email}
+          onChange={setEmail}
+        />
+        <TextBox
+          type="text"
+          icon={<BuildingOffice2Icon />}
+          placeholder="บริษัท"
+          value={company}
+          onChange={setCompany}
+        />
+        <TextBox
+          type="text"
+          icon={<UsersIcon />}
+          placeholder="แผนก"
+          value={department}
+          onChange={setDepartment}
+        />
+        <TextBox
+          type="text"
+          icon={<UserCircleIcon />}
+          placeholder="ตำแหน่ง"
+          value={role}
+          onChange={setRole}
         />
         <TextBox
           type="password"
@@ -64,7 +127,7 @@ export default function Page() {
           className="relative bg-primary-950 text-white px-8 py-3 rounded-lg whitespace-nowrap overflow-hidden shadow-lg transition-shadow duration-300"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={() => console.log("asdas")}
+          onClick={handleSubmit}
         >
           <motion.div
             className="flex items-center justify-center w-full"
@@ -92,6 +155,7 @@ export default function Page() {
             transition={{ duration: 0.4 }}
           />
         </button>
+        {error && <p className="text-end text-sm text-red-500">เกิดข้อผิดพลาดกรุณาติดต่อ 1669</p>}
         <div className="flex items-center gap-2">
           <input type="checkbox" id="acceptTerms" className="w-4 h-4" />
           <label htmlFor="acceptTerms" className="text-neutral-300">

@@ -18,8 +18,3 @@ export interface RequestRegisterUser {
   departmentName: string
   role: string
 }
-
-export interface RequestLoginUser {
-  email: string
-  password: string
-}

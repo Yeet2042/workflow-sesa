@@ -1,7 +1,7 @@
 "use client";
 
 import TextBox from "@/components/inputs/TextBox";
-import { UserIcon, LockClosedIcon } from "@heroicons/react/20/solid";
+import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -62,7 +62,7 @@ export default function Page() {
         </div>
         <TextBox
           type="email"
-          icon={<UserIcon />}
+          icon={<EnvelopeIcon />}
           placeholder="อีเมลล์"
           value={email}
           onChange={setEmail}
