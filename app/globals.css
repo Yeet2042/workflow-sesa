@@ -28,3 +28,17 @@ body {
   background: var(--background);
   font-family: var(--font-sans), sans-serif;
 }
+
+@keyframes gradientMove {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-move {
+  background-size: 150% 150%;
+  animation: gradientMove 8s ease infinite;
+}

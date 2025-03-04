@@ -1,9 +1,11 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Button() {
+  const router = useRouter()
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -11,6 +13,7 @@ export default function Button() {
       className="relative bg-primary-950 text-white px-8 py-3 rounded-lg whitespace-nowrap overflow-hidden shadow-lg transition-shadow duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => router.push("/register")}
     >
       <motion.div
         className="flex items-center justify-center w-full"
