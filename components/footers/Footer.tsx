@@ -15,7 +15,7 @@ export default function Footer() {
         </div>
         <div className="w-full flex justify-between text-sm text-neutral-300">
           <p>Terms of Use & Privacy Policy</p>
-          <p>©2022 Workflow Team. All Rights Reserved</p>
+          <p>2077 Workflow Team. All Rights Reserved</p>
         </div>
       </div>
     </footer>
