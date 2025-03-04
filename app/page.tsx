@@ -6,6 +6,7 @@ import { BlurFade } from "@/components/magicui/blur-fade";
 import { BoxReveal } from "@/components/magicui/box-reveal";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { SparklesText } from "@/components/magicui/sparkles-text";
+import AIModal from "@/components/modals/AIModal";
 import Navbar from "@/components/navigators/Navbar";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { motion, useAnimation } from "framer-motion";
@@ -153,6 +154,7 @@ export default function Page() {
         </div>
       </div>
       <Footer/>
+      <AIModal/>
     </>
   );
 }
