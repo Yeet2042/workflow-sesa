@@ -62,6 +62,7 @@ export default function Page() {
                 <th className="p-3">จำนวนเงิน</th>
                 <th className="p-3">สร้างโดย</th>
                 <th className="p-3">สถานะ</th>
+                <th className="p-2"></th>
               </tr>
             </thead>
             <tbody>
@@ -85,6 +86,14 @@ export default function Page() {
                       {req.status}
                     </span>
                   </td>
+                  <td className="p-2">
+                <button
+                  className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded"
+                  onClick={() => router.push(`/edit/${req.id}`)}
+                >
+                  แก้ไข
+                </button>
+              </td>
                 </tr>
               ))}
             </tbody>
