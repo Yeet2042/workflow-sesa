@@ -12,8 +12,9 @@ import { CheckIcon } from "@heroicons/react/20/solid";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-
+import { useRouter } from "next/navigation";
 export default function Page() {
+  const router = useRouter();
   const controls = useAnimation();
   const [ref, inView] = useInView();
 
@@ -61,7 +62,7 @@ export default function Page() {
           </BoxReveal>
           <div className="flex gap-4">
             <Button />
-            <button className="hover:underline text-neutral-100">
+            <button className="hover:underline text-neutral-100" onClick={() => router.push("/login")}>
               เข้าสู่ระบบ
             </button>
           </div>
