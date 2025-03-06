@@ -43,7 +43,7 @@ export default function EditBudget() {
   return (
     <div className="bg-gray-900 text-white min-h-screen flex justify-center items-center p-6">
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-lg">
-        <h1 className="text-2xl font-bold mb-6 text-center">เบิกงบประมาณ</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">แก้ไขประมาณ</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block mb-2 text-sm font-medium">รายละเอียด</label>
@@ -89,7 +89,7 @@ export default function EditBudget() {
               loading ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-700"
             }`}
           >
-            {loading ? "กำลังส่ง..." : "ยืนยันการเบิกงบ"}
+            {loading ? "กำลังส่ง..." : "ยืนยันการเเก้ไข"}
           </button>
         </form>
       </div>

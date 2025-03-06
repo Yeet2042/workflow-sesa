@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import {Budget} from "@/interface/budget";
 import { FaCheckCircle, FaClock, FaTimesCircle, FaPlus } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { FcApprove } from "react-icons/fc";
 export default function Page() {
     const router = useRouter();
     const [requests, setRequests] = useState<Budget[]>([]);
@@ -26,12 +27,21 @@ export default function Page() {
       <div className="bg-gray-900 text-white min-h-screen p-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">รายการทั้งหมด</h1>
+          <div className="flex  items-center">
           <button
             onClick={() => router.push("/withdraw")}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center shadow-lg"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center shadow-lg mr-4"
           >
             <FaPlus className="mr-2" /> เบิกงบ
           </button>
+          <button
+        onClick={() => router.push("/approve")}
+        className="bg-green-600 text-white  flex items-center shadow-lg px-4 py-2 rounded-lg hover:bg-green-700"
+      >
+        <FcApprove />อนุมัติคำขอ
+      </button>
+      </div>
+          
         </div>
 
         <div className="grid grid-cols-3 gap-6 text-center mb-8">
@@ -76,9 +86,9 @@ export default function Page() {
                   <td className="p-3">
                     <span
                       className={`px-3 py-1 text-white font-bold rounded-full ${
-                        req.status === "อนุมัติ"
+                        req.status === "approve"
                           ? "bg-green-500"
-                          : req.status === "รอดำเนินการ"
+                          : req.status === "pending"
                           ? "bg-yellow-500"
                           : "bg-red-500"
                       }`}

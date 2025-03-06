@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-// ✅ ดึงข้อมูลงบประมาณตาม ID
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> } // แก้ไข typing ให้รองรับ Promise
@@ -18,7 +17,6 @@ export async function GET(
   return NextResponse.json(budget);
 }
 
-// ✅ อัปเดตข้อมูลงบประมาณ
 export async function PATCH(req: Request, context: { params: { id: string } }) {
   const params = await context.params;
   const id = params.id;
