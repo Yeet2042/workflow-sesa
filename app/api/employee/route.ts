@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         status: "pending",
         createdAt: new Date(),
         name: "user",
-        total: 1,
+        total: quantity * price,
         userId: 1,
       },
     });

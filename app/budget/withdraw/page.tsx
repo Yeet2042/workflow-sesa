@@ -7,7 +7,7 @@ export default function WithdrawPage() {
   const router = useRouter();
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -17,7 +17,7 @@ export default function WithdrawPage() {
     const payload = {
       description,
       quantity,
-      price: parseFloat(price),
+      price,
     };
 
     try {
@@ -70,15 +70,26 @@ export default function WithdrawPage() {
           </div>
 
           <div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">
-              จำนวนเงิน (บาท)
-            </label>
+            <label className="block mb-2 text-sm font-medium">ราคาต่อชิ้น (บาท)</label>
             <input
               type="number"
               className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => setPrice(Number(e.target.value))}
+              min="1"
               required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-2 text-sm font-medium">
+              ราคารวม (บาท)
+            </label>
+            <input
+              type="number"
+              className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+              value={price * quantity}
+              readOnly
             />
           </div>
 

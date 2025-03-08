@@ -5,6 +5,7 @@ import { Budget } from "@/interface/budget";
 import { FaCheckCircle, FaClock, FaTimesCircle, FaPlus } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { FcApprove } from "react-icons/fc";
+import PriceFormatter from "@/utils/PriceFormatter";
 export default function Page() {
   const router = useRouter();
   const [requests, setRequests] = useState<Budget[]>([]);
@@ -69,7 +70,9 @@ export default function Page() {
                 <th className="p-3">ID</th>
                 <th className="p-3">สร้างเมื่อ</th>
                 <th className="p-3">รายละเอียด</th>
-                <th className="p-3">จำนวนเงิน</th>
+                <th className="p-3">จำนวน</th>
+                <th className="p-3">ราคาต่อชิ้น</th>
+                <th className="p-3">ราคารวม</th>
                 <th className="p-3">สร้างโดย</th>
                 <th className="p-3">สถานะ</th>
                 <th className="p-2"></th>
@@ -83,7 +86,9 @@ export default function Page() {
                     {new Date(req.createdAt).toLocaleDateString()}
                   </td>
                   <td className="p-3">{req.description}</td>
-                  <td className="p-3">{req.price.toLocaleString()}</td>
+                  <td className="p-3">{req.quantity}</td>
+                  <td className="p-3">{PriceFormatter(req.price)} ฿</td>
+                  <td className="p-3">{PriceFormatter(req.total)} ฿</td>
                   <td className="p-3">{req.name}</td>
                   <td className="p-3">
                     <span
