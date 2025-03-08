@@ -1,3 +1,6 @@
+import { Company } from "./company"
+import { Department } from "./department"
+
 export interface User {
   id: number
   email: string
@@ -14,7 +17,7 @@ export interface RequestRegisterUser {
   email: string
   password: string
   name: string
-  companyName: string
-  departmentName: string
+  company: Company
+  department: Department
   role: string
 }

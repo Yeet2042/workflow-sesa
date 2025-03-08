@@ -28,6 +28,7 @@ model department {
   companyId  Int
   company    Company  @relation(fields: [companyId], references: [id])
   users     User[]
+  expenditure expenditure[]
 }
 
 model User {
@@ -69,6 +70,12 @@ model totalExpenditure {
   company     Company  @relation(fields: [companyId], references: [id])
 }
 
-// model expenditure {
-//   id int
-// }
+model expenditure {
+  id Int @id @default(autoincrement())
+  year        Int
+  amount      Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  departmentId   Int
+  department     department  @relation(fields: [departmentId], references: [id])
+}

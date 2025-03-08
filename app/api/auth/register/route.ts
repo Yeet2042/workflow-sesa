@@ -6,9 +6,9 @@ export async function POST(request: Request) {
   try {
     const newUser: RequestRegisterUser = await request.json()
 
-    const { companyName, departmentName, ...userData } = newUser
+    const { company, department, ...userData } = newUser
 
-    if (!newUser.email || !newUser.password || !companyName || !departmentName) {
+    if (!newUser.email || !newUser.password || !company || !department) {
       return new Response(JSON.stringify({ error: 'All fields are required' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
@@ -21,6 +21,8 @@ export async function POST(request: Request) {
       data: {
         ...userData,
         password: hashedPassword,
+        companyId: company.id,
+        departmentId: department.id,
       },
     })
 

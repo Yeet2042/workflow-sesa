@@ -1,13 +1,17 @@
 "use client";
 
 import TextBox from "@/components/inputs/TextBox";
-import { UserIcon, LockClosedIcon, EnvelopeIcon, UsersIcon, BuildingOffice2Icon, UserCircleIcon } from "@heroicons/react/20/solid";
+import { UserIcon, LockClosedIcon, EnvelopeIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { BoxReveal } from "@/components/magicui/box-reveal";
 import TermsModal from "@/components/modals/TermsModal";
+import CompanyDropdown from "@/components/dropdowns/CompanyDropdown";
+import { Company } from "@/interface/company";
+import DepartmentDropdown from "@/components/dropdowns/DepartmentDropdown";
+import { Department } from "@/interface/department";
 
 export default function Page() {
   const router = useRouter();
@@ -15,8 +19,8 @@ export default function Page() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [department, setDepartment] = useState("");
+  const [company, setCompany] = useState<Company>({} as Company);
+  const [department, setDepartment] = useState<Department>({} as Department);
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -35,8 +39,8 @@ export default function Page() {
         body: JSON.stringify({
           name,
           email,
-          companyName: company,
-          departmentName: department,
+          company: company,
+          department: department,
           password,
           role,
         }),
@@ -91,19 +95,13 @@ export default function Page() {
           value={email}
           onChange={setEmail}
         />
-        <TextBox
-          type="text"
-          icon={<BuildingOffice2Icon />}
-          placeholder="บริษัท"
+        <CompanyDropdown
           value={company}
-          onChange={setCompany}
+          onValueChange={setCompany}
         />
-        <TextBox
-          type="text"
-          icon={<UsersIcon />}
-          placeholder="แผนก"
+        <DepartmentDropdown
           value={department}
-          onChange={setDepartment}
+          onValueChange={setDepartment}
         />
         <TextBox
           type="text"

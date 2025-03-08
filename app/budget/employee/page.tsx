@@ -13,8 +13,17 @@ export default function Page() {
   const [approvedCount, setApprovedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
   const [rejectedCount, setRejectedCount] = useState(0);
+<<<<<<< HEAD
    const [userId, setUserId] = useState(0);
    const session = useSession()
+=======
+  const session = useSession()
+
+  if (session.data?.user?.role !== "employee") {
+    router.replace("/")
+  }
+
+>>>>>>> 393b40c (Add company and department dropdowns; implement session checks for user roles; enhance API routes for companies and departments)
   useEffect(() => {
     if (session.data) {
       setUserId(Number(session.data.user.id));
