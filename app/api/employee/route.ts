@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         name: "",
         total: quantity * price,
         user: {
-          connect: { id: parseInt(userId) }, // เชื่อมกับ User ที่มีอยู่
+          connect: { id: parseInt(userId) },
         },
       },
     });

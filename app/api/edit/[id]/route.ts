@@ -5,11 +5,11 @@ const prisma = new PrismaClient();
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> } // ✅ ใช้ Promise<{ id: string }>
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params; // ✅ ต้อง await params
+  const { id } = await params;
 
-  console.log(id); // ✅ ควรเป็น '9' แล้ว
+  console.log(id);
 
   if (!id || isNaN(Number(id.toString()))) {
     return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
@@ -28,11 +28,11 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> } // ✅ ใช้ Promise<{ id: string }>
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params; // ✅ ต้อง await params
+  const { id } = await params;
 
-  console.log(id); // ✅ ควรเป็น '9' แล้ว
+  console.log(id);
 
   if (!id || isNaN(Number(id))) {
     return NextResponse.json({ error: "Invalid ID" }, { status: 400 });

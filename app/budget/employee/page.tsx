@@ -6,13 +6,19 @@ import { FaCheckCircle, FaClock, FaTimesCircle, FaPlus } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { FcApprove } from "react-icons/fc";
 import PriceFormatter from "@/utils/PriceFormatter";
+import { useSession } from "next-auth/react";
 export default function Page() {
   const router = useRouter();
   const [requests, setRequests] = useState<BudgetWithUser[]>([]);
   const [approvedCount, setApprovedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
   const [rejectedCount, setRejectedCount] = useState(0);
+   const [userId, setUserId] = useState(0);
+   const session = useSession()
   useEffect(() => {
+    if (session.data) {
+      setUserId(Number(session.data.user.id));
+    }
     fetch("/api/employee")
       .then((res) => res.json())
       .then((data) => {
@@ -104,12 +110,15 @@ export default function Page() {
                     </span>
                   </td>
                   <td className="p-2">
-                    <button
-                      className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded"
-                      onClick={() => router.push(`/budget/edit/${req.id}`)}
-                    >
-                      แก้ไข
-                    </button>
+                    {userId === req.user.id && (
+                      <button
+                        className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded"
+                        onClick={() => router.push(`/budget/edit/${req.id}`)}
+                      >
+                        แก้ไข
+                      </button>
+                    )}
+
                   </td>
                 </tr>
               ))}
