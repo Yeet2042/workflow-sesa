@@ -27,7 +27,7 @@ export default function Page() {
         setPendingCount(data.pendingCount);
         setRejectedCount(data.rejectedCount);
       });
-  }, []);
+  }, [session.data]);
   return (
     <>
       <Navbar />
