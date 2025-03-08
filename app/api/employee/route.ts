@@ -4,11 +4,11 @@ import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 export async function GET() {
-  const requests = (await prisma.budget.findMany({
+  const requests = await prisma.budget.findMany({
     include: {
       user: true,
     },
-  }));
+  });
 
   const approvedCount = requests.filter((r) => r.status === "approve").length;
   const pendingCount = requests.filter((r) => r.status === "pending").length;
@@ -41,7 +41,9 @@ export async function POST(req: Request) {
         createdAt: new Date(),
         name: "",
         total: quantity * price,
-        userId,
+        user: {
+          connect: { id: parseInt(userId) }, // เชื่อมกับ User ที่มีอยู่
+        },
       },
     });
 

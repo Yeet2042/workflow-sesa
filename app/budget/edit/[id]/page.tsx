@@ -21,9 +21,13 @@ export default function EditBudget() {
     }
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setForm({
+    ...form,
+    [name]: name === "quantity" || name === "price" ? Number(value) : value, // ✅ แปลงเป็น number ถ้าจำเป็น
+  });
+};
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,6 +37,8 @@ export default function EditBudget() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
+    const data = await res.json();
+  console.log("📌 Response:", data);
     if (res.ok) {
          alert("บันทึกคำขอเบิกงบสำเร็จ!");
         router.push("/budget/employee");}

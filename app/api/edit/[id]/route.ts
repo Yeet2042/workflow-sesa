@@ -3,10 +3,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string } >}) {
-  const id = await params;
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> } // ✅ ใช้ Promise<{ id: string }>
+) {
+  const { id } = await params; // ✅ ต้อง await params
 
-  if (!id || isNaN(Number(id))) {
+  console.log(id); // ✅ ควรเป็น '9' แล้ว
+
+  if (!id || isNaN(Number(id.toString()))) {
     return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
   }
 
@@ -21,8 +26,13 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   return NextResponse.json(budget);
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const id = params;
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> } // ✅ ใช้ Promise<{ id: string }>
+) {
+  const { id } = await params; // ✅ ต้อง await params
+
+  console.log(id); // ✅ ควรเป็น '9' แล้ว
 
   if (!id || isNaN(Number(id))) {
     return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
@@ -41,6 +51,9 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       budget: updatedBudget,
     });
   } catch (error) {
-    return NextResponse.json({ error: "เกิดข้อผิดพลาด", details: (error as Error).message }, { status: 500 });
+    return NextResponse.json(
+      { error: "เกิดข้อผิดพลาด", details: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
