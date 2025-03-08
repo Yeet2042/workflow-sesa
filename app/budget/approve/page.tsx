@@ -1,17 +1,20 @@
 // app/approve/page.tsx
 "use client";
 import { useEffect, useState } from "react";
-import {Budget} from "@/interface/budget";
+import { Budget } from "@/interface/budget";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 export default function ApprovePage() {
-    const [requests, setRequests] = useState<Budget[]>([]);
-
+  const [requests, setRequests] = useState<Budget[]>([]);
 
   useEffect(() => {
-    fetch("/api/employee") 
+    fetch("/api/employee")
       .then((res) => res.json())
       .then((data) => {
-        setRequests(data.requests.filter((req: { status: string }) => req.status === "pending"));
+        setRequests(
+          data.requests.filter(
+            (req: { status: string }) => req.status === "pending"
+          )
+        );
       });
   }, []);
 
@@ -29,7 +32,7 @@ export default function ApprovePage() {
   };
 
   return (
-   <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6">
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6">
       <h1 className="text-3xl font-bold mb-6">รายการคำขอรออนุมัติ</h1>
 
       {requests.length === 0 ? (
@@ -37,10 +40,15 @@ export default function ApprovePage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
           {requests.map((req) => (
-            <div key={req.id} className="bg-gray-800 p-6 rounded-lg shadow-lg relative">
+            <div
+              key={req.id}
+              className="bg-gray-800 p-6 rounded-lg shadow-lg relative"
+            >
               <h2 className="text-xl font-semibold">{req.description}</h2>
               <p className="text-gray-400">จำนวน: {req.quantity}</p>
-              <p className="text-green-400 font-bold">฿{req.price.toLocaleString()}</p>
+              <p className="text-green-400 font-bold">
+                ฿{req.price.toLocaleString()}
+              </p>
 
               <div className="flex gap-4 mt-4">
                 <button

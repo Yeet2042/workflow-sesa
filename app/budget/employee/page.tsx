@@ -1,17 +1,17 @@
-"use client"
+"use client";
 import Navbar from "@/components/navigators/Navbar";
 import { useState, useEffect } from "react";
-import {Budget} from "@/interface/budget";
+import { Budget } from "@/interface/budget";
 import { FaCheckCircle, FaClock, FaTimesCircle, FaPlus } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { FcApprove } from "react-icons/fc";
 export default function Page() {
-    const router = useRouter();
-    const [requests, setRequests] = useState<Budget[]>([]);
-    const [approvedCount, setApprovedCount] = useState(0);
-    const [pendingCount, setPendingCount] = useState(0);
-    const [rejectedCount, setRejectedCount] = useState(0);
-    useEffect(() => {
+  const router = useRouter();
+  const [requests, setRequests] = useState<Budget[]>([]);
+  const [approvedCount, setApprovedCount] = useState(0);
+  const [pendingCount, setPendingCount] = useState(0);
+  const [rejectedCount, setRejectedCount] = useState(0);
+  useEffect(() => {
     fetch("/api/employee")
       .then((res) => res.json())
       .then((data) => {
@@ -21,27 +21,27 @@ export default function Page() {
         setRejectedCount(data.rejectedCount);
       });
   }, []);
- return (
+  return (
     <>
       <Navbar />
       <div className="bg-gray-900 text-white min-h-screen p-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">รายการทั้งหมด</h1>
           <div className="flex  items-center">
-          <button
-            onClick={() => router.push("/withdraw")}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center shadow-lg mr-4"
-          >
-            <FaPlus className="mr-2" /> เบิกงบ
-          </button>
-          <button
-        onClick={() => router.push("/approve")}
-        className="bg-green-600 text-white  flex items-center shadow-lg px-4 py-2 rounded-lg hover:bg-green-700"
-      >
-        <FcApprove />อนุมัติคำขอ
-      </button>
-      </div>
-          
+            <button
+              onClick={() => router.push("/budget/withdraw")}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center shadow-lg mr-4"
+            >
+              <FaPlus className="mr-2" /> เบิกงบ
+            </button>
+            <button
+              onClick={() => router.push("/budget/approve")}
+              className="bg-green-600 text-white  flex items-center shadow-lg px-4 py-2 rounded-lg hover:bg-green-700"
+            >
+              <FcApprove />
+              อนุมัติคำขอ
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-3 gap-6 text-center mb-8">
@@ -79,7 +79,9 @@ export default function Page() {
               {requests.map((req) => (
                 <tr key={req.id} className="border-b border-gray-700">
                   <td className="p-3">{req.id}</td>
-                  <td className="p-3">{new Date(req.createdAt).toLocaleDateString()}</td>
+                  <td className="p-3">
+                    {new Date(req.createdAt).toLocaleDateString()}
+                  </td>
                   <td className="p-3">{req.description}</td>
                   <td className="p-3">{req.price.toLocaleString()}</td>
                   <td className="p-3">{req.name}</td>
@@ -97,13 +99,13 @@ export default function Page() {
                     </span>
                   </td>
                   <td className="p-2">
-                <button
-                  className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded"
-                  onClick={() => router.push(`/edit/${req.id}`)}
-                >
-                  แก้ไข
-                </button>
-              </td>
+                    <button
+                      className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded"
+                      onClick={() => router.push(`/edit/${req.id}`)}
+                    >
+                      แก้ไข
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
