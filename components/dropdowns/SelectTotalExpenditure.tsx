@@ -15,22 +15,29 @@ export default function SelectTotalExpenditure({
   value,
   onValueChange,
 }: Props) {
-  const [totalExpenditures, setTotalExpenditures] = useState<
-    TotalExpenditure[]
-  >([]);
+  const [totalExpenditures, setTotalExpenditures] = useState<TotalExpenditure[]>(
+    []
+  );
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const fetchCompanies = async () => {
+    const fetchExpenditures = async () => {
       const response = await fetch(
         `/api/expenditure/totalExpenditure/${companyId}`
       );
       const data = await response.json();
       setTotalExpenditures(data.totalExpenditures);
+
+      if (data.totalExpenditures.length > 0) {
+        const latestExpenditure = data.totalExpenditures.reduce((prev: { id: number; }, current: { id: number; }) =>
+          prev.id > current.id ? prev : current
+        );
+        onValueChange(latestExpenditure);
+      }
     };
 
-    fetchCompanies();
-  }, [companyId]);
+    fetchExpenditures();
+  }, [companyId, onValueChange]);
 
   return (
     <div className="relative">
@@ -50,16 +57,15 @@ export default function SelectTotalExpenditure({
       {isOpen && (
         <div className="absolute z-10 w-full mt-2 rounded-lg shadow-lg">
           <div className="flex flex-col py-2 bg-[#353B45] rounded-lg">
-            {totalExpenditures.length > 0 &&
-              totalExpenditures.map((totalExpenditure) => (
-                <button
-                  key={totalExpenditure.id}
-                  className=" px-4 py-2 text-left hover:font-semibold"
-                  onClick={() => onValueChange(totalExpenditure)}
-                >
-                  {totalExpenditure.year}
-                </button>
-              ))}
+            {totalExpenditures.map((totalExpenditure) => (
+              <button
+                key={totalExpenditure.id}
+                className="px-4 py-2 text-left hover:font-semibold"
+                onClick={() => onValueChange(totalExpenditure)}
+              >
+                {totalExpenditure.year}
+              </button>
+            ))}
           </div>
         </div>
       )}

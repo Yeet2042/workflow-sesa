@@ -21,3 +21,7 @@ export interface RequestRegisterUser {
   department: Department
   role: string
 }
+
+export interface UserWithDepartment extends User {
+  department: Department
+}

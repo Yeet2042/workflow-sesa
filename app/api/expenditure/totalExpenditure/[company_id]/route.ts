@@ -8,8 +8,18 @@ export async function GET(req: Request, { params } : { params: Promise<{ company
     const totalExpenditures = await prisma.totalExpenditure.findMany({
       where: {
         companyId: Number(company_id)
+      },
+      include: {
+        expenditure: {
+          include: {
+            department: true
+          }
+        }
       }
     })
+
+    console.log(totalExpenditures);
+
     return NextResponse.json({ totalExpenditures });
   } catch (error) {
     console.error(error);
