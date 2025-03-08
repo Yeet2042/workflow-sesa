@@ -1,7 +1,7 @@
 "use client";
 
 import TextBox from "@/components/inputs/TextBox";
-import { UserIcon, LockClosedIcon, EnvelopeIcon, UserCircleIcon } from "@heroicons/react/20/solid";
+import { UserIcon, LockClosedIcon, EnvelopeIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -21,7 +21,6 @@ export default function Page() {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState<Company>({} as Company);
   const [department, setDepartment] = useState<Department>({} as Department);
-  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -42,7 +41,6 @@ export default function Page() {
           company: company,
           department: department,
           password,
-          role,
         }),
       });  
 
@@ -102,13 +100,6 @@ export default function Page() {
         <DepartmentDropdown
           value={department}
           onValueChange={setDepartment}
-        />
-        <TextBox
-          type="text"
-          icon={<UserCircleIcon />}
-          placeholder="ตำแหน่ง"
-          value={role}
-          onChange={setRole}
         />
         <TextBox
           type="password"

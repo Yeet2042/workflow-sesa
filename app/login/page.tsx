@@ -29,7 +29,7 @@ export default function Page() {
       if (result?.error) {
         setError(true)
       } else if (result) {
-        router.push('/budget/employee')
+        router.push('/budget')
       }
     } catch (error) {
       console.log('error', error)

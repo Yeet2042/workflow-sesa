@@ -23,6 +23,7 @@ export async function POST(request: Request) {
         password: hashedPassword,
         companyId: company.id,
         departmentId: department.id,
+        role: "employee",
       },
     })
 
