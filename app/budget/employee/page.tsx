@@ -101,7 +101,7 @@ export default function Page() {
                   <td className="p-2">
                     <button
                       className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded"
-                      onClick={() => router.push(`/edit/${req.id}`)}
+                      onClick={() => router.push(`/budget/edit/${req.id}`)}
                     >
                       แก้ไข
                     </button>
