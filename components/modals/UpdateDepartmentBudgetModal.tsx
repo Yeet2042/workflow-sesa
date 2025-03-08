@@ -12,6 +12,9 @@ interface Props {
 }
 
 export default function UpdateDepartmentBudgetModal({ departmentId, departmentName, totalRemaining, remaining, amount }: Props) {
+  void departmentId
+  void totalRemaining
+
   const [isOpen, setIsOpen] = useState(false);
 
   const [newAmount, setNewAmount] = useState(0);
