@@ -1,5 +1,6 @@
 "use client"
 
+import Navbar from "@/components/navigators/Navbar"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
@@ -12,6 +13,9 @@ export default function Page() {
   }
 
   return (
-    <div>page</div>
+    <div>
+      <Navbar/>
+      
+    </div>
   )
 }
