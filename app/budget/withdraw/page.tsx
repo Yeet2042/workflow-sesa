@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function WithdrawPage() {
   const router = useRouter();
@@ -9,6 +10,8 @@ export default function WithdrawPage() {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  const session = useSession()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,6 +21,7 @@ export default function WithdrawPage() {
       description,
       quantity,
       price,
+      userId: session.data?.user.id
     };
 
     try {

@@ -1,14 +1,14 @@
 "use client";
 import Navbar from "@/components/navigators/Navbar";
 import { useState, useEffect } from "react";
-import { Budget } from "@/interface/budget";
+import { BudgetWithUser } from "@/interface/budget";
 import { FaCheckCircle, FaClock, FaTimesCircle, FaPlus } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { FcApprove } from "react-icons/fc";
 import PriceFormatter from "@/utils/PriceFormatter";
 export default function Page() {
   const router = useRouter();
-  const [requests, setRequests] = useState<Budget[]>([]);
+  const [requests, setRequests] = useState<BudgetWithUser[]>([]);
   const [approvedCount, setApprovedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
   const [rejectedCount, setRejectedCount] = useState(0);
@@ -89,7 +89,7 @@ export default function Page() {
                   <td className="p-3">{req.quantity}</td>
                   <td className="p-3">{PriceFormatter(req.price)} ฿</td>
                   <td className="p-3">{PriceFormatter(req.total)} ฿</td>
-                  <td className="p-3">{req.name}</td>
+                  <td className="p-3">{req.user.name}</td>
                   <td className="p-3">
                     <span
                       className={`px-3 py-1 text-white font-bold rounded-full ${

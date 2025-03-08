@@ -4,7 +4,11 @@ import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 export async function GET() {
-  const requests = await prisma.budget.findMany();
+  const requests = (await prisma.budget.findMany({
+    include: {
+      user: true,
+    },
+  }));
 
   const approvedCount = requests.filter((r) => r.status === "approve").length;
   const pendingCount = requests.filter((r) => r.status === "pending").length;
@@ -19,7 +23,7 @@ export async function GET() {
 }
 export async function POST(req: Request) {
   try {
-    const { description, quantity, price } = await req.json();
+    const { description, quantity, price, userId } = await req.json();
 
     if (!description || !quantity || !price) {
       return NextResponse.json(
@@ -35,9 +39,9 @@ export async function POST(req: Request) {
         price,
         status: "pending",
         createdAt: new Date(),
-        name: "user",
+        name: "",
         total: quantity * price,
-        userId: 1,
+        userId,
       },
     });
 

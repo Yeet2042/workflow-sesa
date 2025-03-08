@@ -16,6 +16,7 @@ model Company {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   departments department[]
+  totalExpenditures totalExpenditure[]
   users     User[]
 }
 
@@ -57,3 +58,17 @@ model budget {
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
 }
+
+model totalExpenditure {
+  id          Int      @id @default(autoincrement())
+  year        Int
+  amount      Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  companyId   Int
+  company     Company  @relation(fields: [companyId], references: [id])
+}
+
+// model expenditure {
+//   id int
+// }
