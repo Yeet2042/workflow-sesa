@@ -18,8 +18,6 @@ export async function GET(req: Request, { params } : { params: Promise<{ company
       }
     })
 
-    console.log(totalExpenditures);
-
     return NextResponse.json({ totalExpenditures });
   } catch (error) {
     console.error(error);

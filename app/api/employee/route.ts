@@ -23,7 +23,7 @@ export async function GET() {
 }
 export async function POST(req: Request) {
   try {
-    const { description, quantity, price, userId } = await req.json();
+    const { description, quantity, price, userId, companyId, departmentId } = await req.json();
 
     if (!description || !quantity || !price) {
       return NextResponse.json(
@@ -41,6 +41,12 @@ export async function POST(req: Request) {
         createdAt: new Date(),
         name: "",
         total: quantity * price,
+        company: {
+          connect: { id: parseInt(companyId) },
+        },
+        department: {
+          connect: { id: parseInt(departmentId) },
+        },
         user: {
           connect: { id: parseInt(userId) },
         },

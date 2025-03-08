@@ -21,7 +21,9 @@ export default function WithdrawPage() {
       description,
       quantity,
       price,
-      userId: session.data?.user.id
+      userId: session.data?.user.id,
+      companyId: session.data?.user.companyId,
+      departmentId: session.data?.user.departmentId,
     };
 
     try {

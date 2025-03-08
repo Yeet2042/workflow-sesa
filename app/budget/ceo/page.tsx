@@ -11,12 +11,10 @@ import PriceFormatter from "@/utils/PriceFormatter";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
   const session = useSession();
-  const router = useRouter();
 
   const [totalExpenditure, setTotalExpenditure] = useState<TotalExpenditure>(
     {} as TotalExpenditure
